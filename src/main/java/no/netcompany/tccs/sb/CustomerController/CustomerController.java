@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CustomerController {
 
-    private EmployeeService employeeService;
+    private CustomerService customerService;
 
     @Autowired
-    public CustomerController(final EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    public CustomerController(final CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     @PostMapping(path = "/customer", consumes = "application/json")
     Long registerCustomer(@RequestBody CustomerDTO customerDTO) {
         Customer customer = new Customer(customerDTO.getName());
-        Long customerId = employeeService.registerCustomer(customer);
+        Long customerId = customerService.registerCustomer(customer);
 
         return customerId;
     }
