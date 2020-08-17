@@ -1,9 +1,11 @@
 package no.netcompany.tccs.sb.CustomerController;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 public class CustomerController {
@@ -23,4 +25,16 @@ public class CustomerController {
         return customerId;
     }
 
+    @RequestMapping(path = "/customer/{customerId}")
+    @ResponseBody
+    ResponseEntity<Customer> fetchCustomer(@PathVariable("customerId") long customerId) {
+
+        Optional<Customer> customer = customerService.findCustomerById(customerId);
+
+        if (customer.isPresent()) {
+            return ResponseEntity.ok(customer.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 }
