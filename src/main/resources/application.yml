@@ -3,6 +3,11 @@ felles: felles verdi
 spring:
   profiles: dev
 egen: egen verdi i dev
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 ---
 spring:
   profiles: prod
