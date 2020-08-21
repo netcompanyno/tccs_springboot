@@ -1,0 +1,9 @@
+felles: felles verdi
+---
+spring:
+  profiles: dev
+egen: egen verdi i dev
+---
+spring:
+  profiles: prod
+egen: egen verdi i prod
