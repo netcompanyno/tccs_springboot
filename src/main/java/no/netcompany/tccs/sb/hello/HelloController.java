@@ -11,6 +11,9 @@ public class HelloController {
     @Value("${egen}")
     private String egen;
 
+    @Value("${felles}")
+    private String felles;
+
     @RequestMapping("/hello/{name}")
     public String hello(@PathVariable String name) {
         return "Hello " + name + "!";
@@ -18,6 +21,11 @@ public class HelloController {
 
     @RequestMapping("/hello")
     public String helloStranger() {
-        return "Hello stranger! " + egen;
+        return "Hello stranger!";
+    }
+
+    @RequestMapping("/verdier")
+    public String verdier() {
+        return "Felles:" + felles + " Egen:" + egen;
     }
 }
