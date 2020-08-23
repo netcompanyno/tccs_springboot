@@ -10,7 +10,7 @@ import java.util.Optional;
 @RestController
 public class CustomerController {
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     @Autowired
     public CustomerController(final CustomerService customerService) {
