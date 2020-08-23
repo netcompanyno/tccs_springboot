@@ -14,8 +14,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private MyBasicAuthenticationEntryPoint authenticationEntryPoint;
+    private final MyBasicAuthenticationEntryPoint authenticationEntryPoint;
+
+    @Autowired // From spring 4.3 this annotation is only needed when there exists more than one constructor.
+    public SecurityConfig(final MyBasicAuthenticationEntryPoint authenticationEntryPoint) {
+        this.authenticationEntryPoint = authenticationEntryPoint;
+    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
