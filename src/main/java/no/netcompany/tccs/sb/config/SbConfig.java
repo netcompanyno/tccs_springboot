@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties
 public class SbConfig {
 
+    private String profiles;
+
     public String getProfiles() {
         return profiles;
     }
@@ -16,6 +18,4 @@ public class SbConfig {
     public void setProfiles(String profiles) {
         this.profiles = profiles;
     }
-
-    private String profiles;
 }
