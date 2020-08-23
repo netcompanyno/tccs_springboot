@@ -2,6 +2,7 @@ package no.netcompany.tccs.sb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,7 @@ public class SbApp{
         SpringApplication.run(SbApp.class, args);
     }
 
-    @RequestMapping("/hello/{name}")
+    @GetMapping("/hello/{name}")
     public String hello(@PathVariable String name) {
         return "Hello " + name + "!";
     }
