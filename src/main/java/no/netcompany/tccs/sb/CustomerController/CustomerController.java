@@ -10,7 +10,7 @@ import java.util.Optional;
 @RestController
 public class CustomerController {
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     @Autowired
     public CustomerController(final CustomerService customerService) {
@@ -25,8 +25,7 @@ public class CustomerController {
         return customerId;
     }
 
-    @RequestMapping(path = "/customer/{customerId}")
-    @ResponseBody
+    @GetMapping(path = "/customer/{customerId}")
     ResponseEntity<Customer> fetchCustomer(@PathVariable("customerId") long customerId) {
 
         Optional<Customer> customer = customerService.findCustomerById(customerId);
@@ -34,7 +33,7 @@ public class CustomerController {
         if (customer.isPresent()) {
             return ResponseEntity.ok(customer.get());
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 }
