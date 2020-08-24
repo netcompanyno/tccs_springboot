@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EnvController {
 
-    @Value("${spring.profiles}")
-    private String env;
+    private final String env;
+    private final SbConfig sbConfig;
 
     private Environment environment;
 
-    private final SbConfig sbConfig;
-
     @Autowired
-    public EnvController(final SbConfig sbConfig) {
+    public EnvController(final SbConfig sbConfig,
+                         @Value("${spring.profiles}") final String env) {
         this.sbConfig = sbConfig;
+        this.env = env;
     }
 
     @GetMapping("/env")
