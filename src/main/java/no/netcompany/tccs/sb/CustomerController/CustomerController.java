@@ -17,8 +17,16 @@ public class CustomerController {
 
     @PostMapping(path = "/customer", consumes = "application/json")
     Long registerCustomer(@RequestBody CustomerDTO customerDTO) {
-        Customer customer = new Customer(customerDTO.getName());
-        Long customerId = employeeService.registerCustomer(customer);
+        final Customer customer = new Customer(
+                customerDTO.getFirstName(),
+                customerDTO.getLastName(),
+                customerDTO.getAge(),
+                customerDTO.getDateOfBirth(),
+                customerDTO.getEmail(),
+                customerDTO.getAddress(),
+                customerDTO.getConsent());
+
+        final Long customerId = employeeService.registerCustomer(customer);
 
         return customerId;
     }
