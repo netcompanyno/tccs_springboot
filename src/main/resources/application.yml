@@ -1,6 +1,9 @@
 felles: felles verdi
 scheduling:
   printNumberOfCustomers: 3000
+spring:
+  cache:
+    cache-names: customerFindByName
 ---
 spring:
   profiles: dev

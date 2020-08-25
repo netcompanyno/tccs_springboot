@@ -3,9 +3,9 @@ package no.netcompany.tccs.sb.CustomerController;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
@@ -26,6 +26,12 @@ public class CustomerService {
 
     public Optional<Customer> findCustomerById(final long customerId) {
         return customerRepository.findById(customerId);
+    }
+
+    @Cacheable("customerFindByName")
+    public Optional<Customer> findByName(final String name) throws InterruptedException {
+        Thread.sleep(3000);
+        return customerRepository.findByName(name);
     }
 
     @Scheduled(fixedDelayString = "${scheduling.printNumberOfCustomers}")
