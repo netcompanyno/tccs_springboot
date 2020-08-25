@@ -1,6 +1,9 @@
 package no.netcompany.tccs.sb.CustomerController;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -8,6 +11,7 @@ import java.util.Optional;
 @Service
 public class CustomerService {
 
+    Logger LOG = LoggerFactory.getLogger(CustomerService.class);
     private final CustomerRepository customerRepository;
 
     @Autowired
@@ -22,5 +26,10 @@ public class CustomerService {
 
     public Optional<Customer> findCustomerById(final long customerId) {
         return customerRepository.findById(customerId);
+    }
+
+    @Scheduled(fixedDelayString = "${scheduling.printNumberOfCustomers}")
+    public void printNumberOfCustomers() {
+        LOG.info("DB contains {} rows", customerRepository.count());
     }
 }

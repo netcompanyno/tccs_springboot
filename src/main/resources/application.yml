@@ -1,4 +1,6 @@
 felles: felles verdi
+scheduling:
+  printNumberOfCustomers: 3000
 ---
 spring:
   profiles: dev
