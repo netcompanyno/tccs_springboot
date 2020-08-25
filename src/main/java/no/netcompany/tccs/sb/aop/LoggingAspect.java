@@ -20,7 +20,7 @@ public class LoggingAspect {
         long timeMs = System.currentTimeMillis() - start;
 
         LoggerFactory.getLogger(joinPoint.getTarget().getClass().getName()).info(
-                "Method took {} millis");
+                "Method took {} millis", timeMs);
 
         return proceed;
     }
