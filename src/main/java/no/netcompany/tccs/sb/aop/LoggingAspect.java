@@ -3,6 +3,7 @@ package no.netcompany.tccs.sb.aop;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -18,8 +19,8 @@ public class LoggingAspect {
 
         long timeMs = System.currentTimeMillis() - start;
 
-        System.out.println("Method " +  joinPoint.getSignature()
-                + " took " + timeMs + " millis");
+        LoggerFactory.getLogger(joinPoint.getTarget().getClass().getName()).info(
+                "Method took {} millis");
 
         return proceed;
     }
