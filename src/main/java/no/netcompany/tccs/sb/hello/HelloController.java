@@ -16,6 +16,7 @@ public class HelloController {
     private String felles;
 
     @RequestMapping("/hello/{name}")
+    @LogExecutionTime
     public String hello(@PathVariable String name) {
         return "Hello " + name + "!";
     }
@@ -27,6 +28,7 @@ public class HelloController {
     }
 
     @RequestMapping("/verdier")
+    @LogExecutionTime
     public String verdier() {
         return "Felles:" + felles + " Egen:" + egen;
     }

@@ -19,6 +19,7 @@ public class CustomerController {
     }
 
     @PostMapping(path = "/customer", consumes = "application/json")
+    @LogExecutionTime
     Long registerCustomer(@RequestBody CustomerDTO customerDTO) {
         Customer customer = new Customer(customerDTO.getName());
         Long customerId = customerService.registerCustomer(customer);
@@ -28,6 +29,7 @@ public class CustomerController {
 
     @RequestMapping(path = "/customer/{customerId}")
     @ResponseBody
+    @LogExecutionTime
     ResponseEntity<Customer> fetchCustomer(@PathVariable("customerId") long customerId) {
 
         Optional<Customer> customer = customerService.findCustomerById(customerId);
