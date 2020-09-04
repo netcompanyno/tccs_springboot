@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,9 +31,9 @@ public class CustomerService {
     }
 
     @Cacheable("customerFindByName")
-    public Optional<Customer> findByName(final String name) throws InterruptedException {
+    public List<Customer> findByFirstName(final String name) throws InterruptedException {
         Thread.sleep(3000);
-        return customerRepository.findByName(name);
+        return customerRepository.findByFirstName(name);
     }
 
     @Scheduled(fixedDelayString = "${scheduling.printNumberOfCustomers}")

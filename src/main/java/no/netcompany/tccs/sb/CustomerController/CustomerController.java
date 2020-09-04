@@ -6,12 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 public class CustomerController {
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     @Autowired
     public CustomerController(final CustomerService customerService) {
@@ -21,14 +23,21 @@ public class CustomerController {
     @PostMapping(path = "/customer", consumes = "application/json")
     @LogExecutionTime
     Long registerCustomer(@RequestBody CustomerDTO customerDTO) {
-        Customer customer = new Customer(customerDTO.getName());
-        Long customerId = customerService.registerCustomer(customer);
+        final Customer customer = new Customer(
+                customerDTO.getFirstName(),
+                customerDTO.getLastName(),
+                customerDTO.getAge(),
+                customerDTO.getDateOfBirth(),
+                customerDTO.getEmail(),
+                customerDTO.getAddress(),
+                customerDTO.getConsent());
+
+        final Long customerId = customerService.registerCustomer(customer);
 
         return customerId;
     }
 
-    @RequestMapping(path = "/customer/{customerId}")
-    @ResponseBody
+    @GetMapping(path = "/customer/{customerId}")
     @LogExecutionTime
     ResponseEntity<Customer> fetchCustomer(@PathVariable("customerId") long customerId) {
 
@@ -37,21 +46,19 @@ public class CustomerController {
         if (customer.isPresent()) {
             return ResponseEntity.ok(customer.get());
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
-    @GetMapping(path = "/customer/name/{name}")
-    @ResponseBody
+    @GetMapping(path = "/customer")
     @LogExecutionTime
-    ResponseEntity<Customer> fetchCustomer(@PathVariable("name") String name) throws InterruptedException {
+    ResponseEntity<List<Customer>> fetchCustomerByFirstName(@RequestParam("firstName") String firstName)
+            throws InterruptedException {
 
-        Optional<Customer> customer = customerService.findByName(name);
-
-        if (customer.isPresent()) {
-            return ResponseEntity.ok(customer.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        if (firstName == null) {
+            return ResponseEntity.ok(Collections.emptyList());
         }
+
+        return ResponseEntity.ok(customerService.findByFirstName(firstName));
     }
 }

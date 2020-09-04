@@ -4,25 +4,25 @@ import no.netcompany.tccs.sb.config.SbConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.Profiles;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class EnvController {
 
-    @Value("${spring.profiles}")
-    private String env;
+    private final String env;
+    private final SbConfig sbConfig;
 
-    Environment environment;
+    private Environment environment;
 
     @Autowired
-    private SbConfig sbConfig;
+    public EnvController(final SbConfig sbConfig,
+                         @Value("${spring.profiles}") final String env) {
+        this.sbConfig = sbConfig;
+        this.env = env;
+    }
 
-
-    @RequestMapping("/env")
-    @ResponseBody
+    @GetMapping("/env")
     String env() {
         //return "Your environment is " + env;
         return "Your environment is " + sbConfig.getProfiles();
