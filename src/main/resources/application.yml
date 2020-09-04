@@ -1,9 +1,13 @@
-felles: felles verdi
-scheduling:
-  printNumberOfCustomers: 3000
 spring:
   cache:
     cache-names: customerFindByName
+  profiles:
+    active: dev
+
+scheduling:
+  printNumberOfCustomers: 3000
+
+felles: felles verdi
 ---
 spring:
   profiles: dev
