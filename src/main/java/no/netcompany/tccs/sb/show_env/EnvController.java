@@ -16,16 +16,19 @@ public class EnvController {
     private Environment environment;
 
     @Autowired
-    public EnvController(final SbConfig sbConfig,
+    public EnvController(final Environment environment,
+                         final SbConfig sbConfig,
                          @Value("${spring.profiles}") final String env) {
+        this.environment = environment;
         this.sbConfig = sbConfig;
         this.env = env;
     }
 
     @GetMapping("/env")
     String env() {
-        //return "Your environment is " + env;
-        return "Your environment is " + sbConfig.getProfiles();
-        //return "Your environment is " + environment.getActiveProfiles();
+        final String profile1 = this.env;
+        final String profile2 = environment.getActiveProfiles()[0];
+        final String profile3 = sbConfig.getProfiles();
+        return "Your environment is " + profile1 + ", " + profile2 + " and " + profile3;
     }
 }
