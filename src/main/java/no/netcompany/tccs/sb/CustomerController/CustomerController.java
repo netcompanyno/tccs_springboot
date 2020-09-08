@@ -20,7 +20,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping(path = "/customer", consumes = "application/json")
+    @PostMapping("/customer")
     @LogExecutionTime
     Long registerCustomer(@RequestBody CustomerDTO customerDTO) {
         final Customer customer = new Customer(
@@ -37,7 +37,7 @@ public class CustomerController {
         return customerId;
     }
 
-    @GetMapping(path = "/customer/{customerId}")
+    @GetMapping("/customer/{customerId}")
     @LogExecutionTime
     ResponseEntity<Customer> fetchCustomer(@PathVariable("customerId") long customerId) {
 
@@ -50,7 +50,7 @@ public class CustomerController {
         }
     }
 
-    @GetMapping(path = "/customer")
+    @GetMapping("/customer")
     @LogExecutionTime
     ResponseEntity<List<Customer>> fetchCustomerByFirstName(@RequestParam("firstName") String firstName)
             throws InterruptedException {
