@@ -15,7 +15,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping(path = "/customer", consumes = "application/json")
+    @PostMapping("/customer")
     Long registerCustomer(@RequestBody CustomerDTO customerDTO) {
         final Customer customer = new Customer(
                 customerDTO.getFirstName(),
