@@ -1,9 +1,7 @@
 package no.netcompany.tccs.sb.CustomerController;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 
@@ -18,15 +16,14 @@ public class CustomerDTO {
     private final String address;
     private final Boolean consent;
 
-    @JsonCreator
-    public CustomerDTO(@JsonProperty("name") final String name,
-                       @JsonProperty("firstName") final String firstName,
-                       @JsonProperty("lastName") final String lastName,
-                       @JsonProperty("age") final int age,
-                       @JsonProperty("dateOfBirth") final Date dateOfBirth,
-                       @JsonProperty("email") final String email,
-                       @JsonProperty("address") final String address,
-                       @JsonProperty("consent") final Boolean consent) {
+    public CustomerDTO(final String name,
+                       final String firstName,
+                       final String lastName,
+                       final int age,
+                       final Date dateOfBirth,
+                       final String email,
+                       final String address,
+                       final Boolean consent) {
         this.name = name;
         this.firstName = firstName;
         this.lastName = lastName;
