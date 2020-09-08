@@ -7,7 +7,6 @@ import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CustomerDTO {
-    private final String name;
     private final String firstName;
     private final String lastName;
     private final int age;
@@ -16,15 +15,13 @@ public class CustomerDTO {
     private final String address;
     private final Boolean consent;
 
-    public CustomerDTO(final String name,
-                       final String firstName,
+    public CustomerDTO(final String firstName,
                        final String lastName,
                        final int age,
                        final Date dateOfBirth,
                        final String email,
                        final String address,
                        final Boolean consent) {
-        this.name = name;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -32,10 +29,6 @@ public class CustomerDTO {
         this.email = email;
         this.address = address;
         this.consent = consent;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getFirstName() {
@@ -69,8 +62,7 @@ public class CustomerDTO {
     @Override
     public String toString() {
         return "CustomerDTO{" +
-               "name='" + name + '\'' +
-               ", firstName='" + firstName + '\'' +
+               "firstName='" + firstName + '\'' +
                ", lastName='" + lastName + '\'' +
                ", age=" + age +
                ", dateOfBirth=" + dateOfBirth +
