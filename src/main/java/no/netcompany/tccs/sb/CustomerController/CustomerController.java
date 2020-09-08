@@ -1,10 +1,13 @@
 package no.netcompany.tccs.sb.CustomerController;
 
+import no.netcompany.tccs.sb.aop.LogExecutionTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,7 +20,8 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping(path = "/customer", consumes = "application/json")
+    @PostMapping("/customer")
+    @LogExecutionTime
     Long registerCustomer(@RequestBody CustomerDTO customerDTO) {
         final Customer customer = new Customer(
                 customerDTO.getFirstName(),
@@ -33,7 +37,8 @@ public class CustomerController {
         return customerId;
     }
 
-    @GetMapping(path = "/customer/{customerId}")
+    @GetMapping("/customer/{customerId}")
+    @LogExecutionTime
     ResponseEntity<Customer> fetchCustomer(@PathVariable("customerId") long customerId) {
 
         Optional<Customer> customer = customerService.findCustomerById(customerId);
@@ -43,5 +48,17 @@ public class CustomerController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @GetMapping("/customer")
+    @LogExecutionTime
+    ResponseEntity<List<Customer>> fetchCustomerByFirstName(@RequestParam("firstName") String firstName)
+            throws InterruptedException {
+
+        if (firstName == null) {
+            return ResponseEntity.ok(Collections.emptyList());
+        }
+
+        return ResponseEntity.ok(customerService.findByFirstName(firstName));
     }
 }
